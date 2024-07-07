@@ -5,9 +5,8 @@ from scripts.rgen import gen
 def main():
     # Ensure correct number of arguments
     if carg[1]=="help":
-        print("Usage: script.py user add <username> <password>")
+        print(open('man\\usage.txt', 'r+').read())
         return
-    
     # USER command
     if carg[1]=="user":
         # ADD action 

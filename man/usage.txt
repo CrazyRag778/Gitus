@@ -1,0 +1,15 @@
+Usage: script.py <command> <action> [options]
+
+Commands:
+  user        Manage user-related operations
+
+Actions:
+  add         Add a new user
+  remove      Remove an existing user
+
+Additional Information:
+  This script allows you to manage user data stored in a JSON file. Ensure that the 'users.json'
+  file is present in the same directory as this script. The 'scripts' directory should contain the
+  'rgen' module with the 'gen' function for generating user IDs.
+
+For more information, contact dattadibyojit@gmail.com
