@@ -1,0 +1,44 @@
+import json
+from sys import argv as carg
+from scripts.rgen import gen
+
+def main():
+    # Ensure correct number of arguments
+    if carg[1]=="help":
+        print("Usage: script.py user add <username> <password>")
+        return
+    
+    # USER command
+    if carg[1]=="user":
+        # ADD action 
+        if carg[2]=="add":
+            u_name = carg[3]
+            u_pswd = carg[4]
+            try:
+                with open('users.json', 'r+') as user_data_file:
+                    # Load existing user data
+                    try:
+                        user_data = json.load(user_data_file)
+                    except json.JSONDecodeError:
+                        user_data = {}
+
+                    # Generate new user ID and add user data
+                    u_id = gen()
+                    user_data[u_id] = {"name": u_name, "password": u_pswd}
+
+                    # Erase the file and write updated data
+                    user_data_file.seek(0)
+                    user_data_file.truncate()
+                    json.dump(user_data, user_data_file, indent=4)
+
+                    print(f"User {u_name} created with ID {u_id}")
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+    # Error in arguments
+    else:
+        print("Invalid command or action.")
+
+# LOOP
+if __name__ == "__main__":
+    main()
