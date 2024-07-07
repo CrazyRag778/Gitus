@@ -20,7 +20,7 @@ def main():
                     try:
                         user_data = json.load(user_data_file)
                     except json.JSONDecodeError:
-                        user_data = {}
+                        print("user.json file seems corrupted!")
 
                     # Generate new user ID and add user data
                     u_id = gen()
@@ -31,9 +31,32 @@ def main():
                     user_data_file.truncate()
                     json.dump(user_data, user_data_file, indent=4)
 
-                    print(f"User {u_name} created with ID {u_id}")
+                    print(f"User {u_name} created with ID {u_id}.")
             except Exception as e:
-                print(f"An error occurred: {e}")
+                print(f"User can't be added: {e}")
+        # REMOVE action 
+        if carg[2]=="remove":
+            u_ID = carg[3]
+            u_name = json.load(open('users.json', 'r+'))[u_ID]["name"]
+            try:
+                with open('users.json', 'r+') as user_data_file:
+                    # Load existing user data
+                    try:
+                        user_data = json.load(user_data_file)
+                    except json.JSONDecodeError:
+                        print("user.json file seems corrupted!")
+
+                    # Remove user and user data
+                    del user_data[u_ID]
+
+                    # Erase the file and write updated data
+                    user_data_file.seek(0)
+                    user_data_file.truncate()
+                    json.dump(user_data, user_data_file, indent=4)
+
+                    print(f"User {u_name} with ID {u_ID} has been deleted.")
+            except Exception as e:
+                print(f"User can't be removed: {e}")
 
     # Error in arguments
     else:
