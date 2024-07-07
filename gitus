@@ -2,6 +2,7 @@ import json
 from sys import argv as carg
 from scripts.rgen import gen
 import scripts.erasefile as erf
+import os
 
 def main():
 
@@ -65,8 +66,12 @@ def main():
             list_name = carg[3]
             open(f"userlists\\{list_name+'.json'}", 'w+').write("{}")
             print(f"Userlist {list_name} has been created.")
+        elif carg[2]=="remove":
+            list_name = carg[3]
+            os.remove(f'userlists\\{list_name}.json')
+            print(f"Userlist {list_name} deleted.")
         else:
-            pass
+            print("USERLIST related functions.")
     # Error in arguments
     else:
         print("Invalid command or action.")
