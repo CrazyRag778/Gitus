@@ -1,20 +1,25 @@
 import json
 from sys import argv as carg
 from scripts.rgen import gen
+import scripts.erasefile as erf
 
 def main():
+
+    USER_LIST = open('.config\\.active_list', 'r+').read()
+
+ 
     # Ensure correct number of arguments
     if carg[1]=="help":
         print(open('man\\usage.txt', 'r+').read())
         return
     # USER command
-    if carg[1]=="user":
+    elif carg[1]=="user":
         # ADD action 
         if carg[2]=="add":
             u_name = carg[3]
             u_pswd = carg[4]
             try:
-                with open('users.json', 'r+') as user_data_file:
+                with open(USER_LIST, 'r+') as user_data_file:
                     # Load existing user data
                     try:
                         user_data = json.load(user_data_file)
@@ -26,19 +31,18 @@ def main():
                     user_data[u_id] = {"name": u_name, "password": u_pswd}
 
                     # Erase the file and write updated data
-                    user_data_file.seek(0)
-                    user_data_file.truncate()
+                    erf.erase(user_data_file)
                     json.dump(user_data, user_data_file, indent=4)
 
                     print(f"User {u_name} created with ID {u_id}.")
             except Exception as e:
                 print(f"User can't be added: {e}")
         # REMOVE action 
-        if carg[2]=="remove":
+        elif carg[2]=="remove":
             u_ID = carg[3]
-            u_name = json.load(open('users.json', 'r+'))[u_ID]["name"]
+            u_name = json.load(open(USER_LIST, 'r+'))[u_ID]["name"]
             try:
-                with open('users.json', 'r+') as user_data_file:
+                with open(USER_LIST, 'r+') as user_data_file:
                     # Load existing user data
                     try:
                         user_data = json.load(user_data_file)
@@ -49,14 +53,20 @@ def main():
                     del user_data[u_ID]
 
                     # Erase the file and write updated data
-                    user_data_file.seek(0)
-                    user_data_file.truncate()
+                    erf.erase(user_data_file)
                     json.dump(user_data, user_data_file, indent=4)
 
                     print(f"User {u_name} with ID {u_ID} has been deleted.")
             except Exception as e:
                 print(f"User can't be removed: {e}")
-
+    # LIST command
+    elif carg[1]=="list":
+        if carg[2]=="add":
+            list_name = carg[3]
+            open(f"userlists\\{list_name+'.json'}", 'w+').write("{}")
+            print(f"Userlist {list_name} has been created.")
+        else:
+            pass
     # Error in arguments
     else:
         print("Invalid command or action.")
