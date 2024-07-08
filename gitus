@@ -8,7 +8,6 @@ def main():
 
     USER_LIST = open('config\\active_list', 'r+').read()
 
- 
     # Ensure correct number of arguments
     if carg[1]=="help":
         print(open('man\\usage.txt', 'r+').read())
@@ -26,15 +25,12 @@ def main():
                         user_data = json.load(user_data_file)
                     except json.JSONDecodeError:
                         print("user.json file seems corrupted!")
-
                     # Generate new user ID and add user data
                     u_id = gen()
                     user_data[u_id] = {"name": u_name, "email": u_email}
-
                     # Erase the file and write updated data
                     erf.erase(user_data_file)
                     json.dump(user_data, user_data_file, indent=4)
-
                     print(f"User {u_name} created with ID {u_id}.")
             except Exception as e:
                 print(f"User can't be added: {e}")
@@ -49,14 +45,11 @@ def main():
                         user_data = json.load(user_data_file)
                     except json.JSONDecodeError:
                         print("user.json file seems corrupted!")
-
                     # Remove user and user data
                     del user_data[u_ID]
-
                     # Erase the file and write updated data
                     erf.erase(user_data_file)
                     json.dump(user_data, user_data_file, indent=4)
-
                     print(f"User {u_name} with ID {u_ID} has been deleted.")
             except Exception as e:
                 print(f"User can't be removed: {e}")
