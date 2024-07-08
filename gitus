@@ -7,6 +7,7 @@ import os
 def main():
 
     USER_LIST = open('config\\active_list', 'r+').read()
+    LIST_REGISTER = open('userlists\\list-register.json', 'r+')
 
     # Ensure correct number of arguments
     if carg[1]=="help":
@@ -57,21 +58,32 @@ def main():
     elif carg[1]=="list":
         if carg[2]=="add":
             "Adds a new Userlist"
-            list_name = carg[3]
-            open(f"userlists\\{list_name+'.json'}", 'w+').write("{}")
-            print(f"Userlist {list_name} has been created.")
+            list_file_name = carg[3]
+            list_id = gen()
+            list_register_temp = json.load(LIST_REGISTER)
+            list_register_temp[list_id] =  {"name": list_file_name, "file": list_file_name+'.json'}
+            erf.erase(LIST_REGISTER)
+            json.dump(list_register_temp, LIST_REGISTER, indent=4)
+            open(f"userlists\\{list_file_name+'.json'}", 'w+').write("{}")
+            print(f"Userlist {list_file_name} with ID {list_id} has been created.")
         elif carg[2]=="remove":
             "Removes an existing Userlist"
-            list_name = carg[3]
-            os.remove(f'userlists\\{list_name}.json')
+            list_id = carg[3]
+            list_register_temp = json.load(LIST_REGISTER)
+            list_name = list_register_temp[list_id]["name"]
+            os.remove(f'userlists\\{list_register_temp[list_id]["file"]}')
+            del list_register_temp[list_id]
+            erf.erase(LIST_REGISTER)
+            json.dump(list_register_temp, LIST_REGISTER, indent=4)
             print(f"Userlist {list_name} deleted.")
         elif carg[2]=="select":
             "Selects a userlist as activelist"
-            list_name = carg[3]
+            list_id = carg[3]
             with open('config\\active_list', 'w+') as active_list:
                 erf.erase(active_list)
-                active_list.write(f'userlists\\{list_name}.json')
-                print(f"Userlist {list_name} selected as activelist")
+                list_register_temp = json.load(LIST_REGISTER)
+                active_list.write(f'userlists\\{list_register_temp[list_id]["file"]}')
+                print(f"Userlist {list_register_temp[list_id]["name"]} selected as activelist")
         else:
             print("USERLIST related functions.")
     # Error in arguments
