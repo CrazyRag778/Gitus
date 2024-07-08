@@ -63,10 +63,12 @@ def main():
     # LIST command
     elif carg[1]=="list":
         if carg[2]=="add":
+            "Adds a new Userlist"
             list_name = carg[3]
             open(f"userlists\\{list_name+'.json'}", 'w+').write("{}")
             print(f"Userlist {list_name} has been created.")
         elif carg[2]=="remove":
+            "Removes an existing Userlist"
             list_name = carg[3]
             os.remove(f'userlists\\{list_name}.json')
             print(f"Userlist {list_name} deleted.")
