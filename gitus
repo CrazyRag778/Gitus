@@ -18,7 +18,7 @@ def main():
         # ADD action 
         if carg[2]=="add":
             u_name = carg[3]
-            u_pswd = carg[4]
+            u_email = carg[4]
             try:
                 with open(USER_LIST, 'r+') as user_data_file:
                     # Load existing user data
@@ -29,7 +29,7 @@ def main():
 
                     # Generate new user ID and add user data
                     u_id = gen()
-                    user_data[u_id] = {"name": u_name, "password": u_pswd}
+                    user_data[u_id] = {"name": u_name, "email": u_email}
 
                     # Erase the file and write updated data
                     erf.erase(user_data_file)
