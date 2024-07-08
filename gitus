@@ -20,7 +20,7 @@ def main():
             u_name = carg[3]
             u_email = carg[4]
             try:
-                with open(USER_LIST, 'r+') as user_data_file:
+                with open(f'userlists\\{USER_LIST}', 'r+') as user_data_file:
                     # Load existing user data
                     try:
                         user_data = json.load(user_data_file)
@@ -38,9 +38,9 @@ def main():
         # REMOVE action 
         elif carg[2]=="remove":
             u_ID = carg[3]
-            u_name = json.load(open(USER_LIST, 'r+'))[u_ID]["name"]
+            u_name = json.load(open(f'userlists\\{USER_LIST}', 'r+'))[u_ID]["name"]
             try:
-                with open(USER_LIST, 'r+') as user_data_file:
+                with open(f'userlists\\{USER_LIST}', 'r+') as user_data_file:
                     # Load existing user data
                     try:
                         user_data = json.load(user_data_file)
@@ -82,7 +82,7 @@ def main():
             with open('config\\active_list', 'w+') as active_list:
                 erf.erase(active_list)
                 list_register_temp = json.load(LIST_REGISTER)
-                active_list.write(f'userlists\\{list_register_temp[list_id]["file"]}')
+                active_list.write(f'{list_register_temp[list_id]["file"]}')
                 print(f"Userlist {list_register_temp[list_id]["name"]} selected as activelist")
         else:
             print("USERLIST related functions.")
