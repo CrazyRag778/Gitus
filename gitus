@@ -6,7 +6,7 @@ import os
 
 def main():
 
-    USER_LIST = open('.config\\.active_list', 'r+').read()
+    USER_LIST = open('config\\active_list', 'r+').read()
 
  
     # Ensure correct number of arguments
@@ -72,6 +72,13 @@ def main():
             list_name = carg[3]
             os.remove(f'userlists\\{list_name}.json')
             print(f"Userlist {list_name} deleted.")
+        elif carg[2]=="select":
+            "Selects a userlist as activelist"
+            list_name = carg[3]
+            with open('config\\active_list', 'w+') as active_list:
+                erf.erase(active_list)
+                active_list.write(f'userlists\\{list_name}.json')
+                print(f"Userlist {list_name} selected as activelist")
         else:
             print("USERLIST related functions.")
     # Error in arguments
