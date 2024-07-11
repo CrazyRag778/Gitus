@@ -88,9 +88,9 @@ def main():
                 list_register_temp = json.load(LIST_REGISTER)
                 active_list.write(f'{list_register_temp[list_id]["file"]}')
                 print(f"Userlist {list_register_temp[list_id]["name"]} selected as activelist")
-        elif carg[2]=="active_list":
+        elif carg[2]=="activelist":
             with open('config\\active_list', 'r+') as active_list:
-                print(f'userlists\\{active_list.read()}')
+                print(f'{active_list.read()}')
         else:
             print("USERLIST related functions.")
     # Error in arguments
