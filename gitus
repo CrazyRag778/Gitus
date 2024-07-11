@@ -11,12 +11,13 @@ def main():
 
     # Manual Settings
     if carg[1]=="help":
-        if len(carg)==1:
+        if carg[2]=="man":
             print(open('man\\usage.txt', 'r+').read())
         if carg[2]=="user":
             print(open('man\\user.txt', 'r+').read())
-
-
+        if carg[2]=="list":
+            print(open('man\\list.txt', 'r+').read())
+                
     # USER command
     elif carg[1]=="user":
         # ADD action 
@@ -91,6 +92,7 @@ def main():
                         print(f"{USER_LIST} file seems corrupted!")
             except Exception as e:
                 print(f"Users can't be used: {e}")
+
     # LIST command
     elif carg[1]=="list":
         # ADD Action
@@ -140,6 +142,7 @@ def main():
                     print(f"{LIST_REGISTER} file seems corrupted!")
             except Exception as e:
                 print(f"Lists can't be stashed: {e}")
+
     # Error in arguments
     else:
         print("Invalid command or action.")

@@ -2,13 +2,17 @@ Usage: py gitus user <action> [options]
 
 Actions:
   add        Creates a new user in activelist
-  remove     removes a existing user from activelist
+  remove     Removes a existing user from activelist
+  stash      List all users in activelist
+  use        Selects a user to be the Git User
 
 Options:
   add:
-    [name]:  Set the name for the new user
-    [email]: Set the email address for the new user
+    [name]:  Name for the new user
+    [email]: E-mail address for the new user
   remove:
-    [ID]:    Provide the ID of the user to be deleted
+    [ID]:    ID of the user to be deleted
+  use:
+    [ID]:    ID of the user to be selected as Git User
 
 For more information, contact dattadibyojit@gmail.com
