@@ -67,9 +67,9 @@ def main():
                         for i in range(0, len(user_data)):
                             print(f"{list(user_data.keys())[i]}: {list(user_data.values())[i]["name"]}")
                     except json.JSONDecodeError:
-                        print(f"{USER_LIST}file seems corrupted!")
+                        print(f"{USER_LIST} file seems corrupted!")
             except Exception as e:
-                print(F"Users can't be stashed: {e}")
+                print(f"Users can't be stashed: {e}")
     # LIST command
     elif carg[1]=="list":
         if carg[2]=="add":
@@ -103,8 +103,17 @@ def main():
         elif carg[2]=="activelist":
             with open('config\\active_list', 'r+') as active_list:
                 print(f'{active_list.read()}')
-        else:
-            print("USERLIST related functions.")
+        elif carg[2]=="stash":
+            try:
+                # Load existing list-register data
+                try:
+                    list_register_temp = json.load(LIST_REGISTER)
+                    for i in range(0, len(list_register_temp)):
+                        print(f"{list(list_register_temp.keys())[i]}: {list(list_register_temp.values())[i]["name"]}")
+                except json.JSONDecodeError:
+                    print(f"{LIST_REGISTER} file seems corrupted!")
+            except Exception as e:
+                print(f"Lists can't be stashed: {e}")
     # Error in arguments
     else:
         print("Invalid command or action.")
