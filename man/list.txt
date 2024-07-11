@@ -1,0 +1,15 @@
+Usage: py gitus list <action> [options]
+
+Actions:
+  add        Creates a new userlist
+  remove     removes a existing userlist
+  stash      List all existing lists
+  activelist Prints the activelist
+
+Options:
+  add:
+    [name]:  Name for the new userlist
+  remove:
+    [ID]:    ID of the userlist to be deleted
+
+For more information, contact dattadibyojit@gmail.com
