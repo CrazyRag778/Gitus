@@ -1,11 +1,8 @@
-Usage: script.py <command> <action> [options]
+Usage: py gitus <command> <action> [options]
 
 Commands:
   user        Manage user-related operations
-
-Actions:
-  add         Add a new user
-  remove      Remove an existing user
+  list        Manages list-related operations
 
 Additional Information:
   This script allows you to manage user data stored in a JSON file. Ensure that the 'users.json'

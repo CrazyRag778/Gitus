@@ -9,10 +9,14 @@ def main():
     USER_LIST = open('config\\active_list', 'r+').read()
     LIST_REGISTER = open('userlists\\list-register.json', 'r+')
 
-    # Ensure correct number of arguments
+    # Manual Settings
     if carg[1]=="help":
-        print(open('man\\usage.txt', 'r+').read())
-        return
+        if len(carg)==1:
+            print(open('man\\usage.txt', 'r+').read())
+        if carg[2]=="user":
+            print(open('man\\user.txt', 'r+').read())
+
+
     # USER command
     elif carg[1]=="user":
         # ADD action 

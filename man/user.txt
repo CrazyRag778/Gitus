@@ -1,0 +1,14 @@
+Usage: py gitus user <action> [options]
+
+Actions:
+  add        Creates a new user in activelist
+  remove     removes a existing user from activelist
+
+Options:
+  add:
+    [name]:  Set the name for the new user
+    [email]: Set the email address for the new user
+  remove:
+    [ID]:    Provide the ID of the user to be deleted
+
+For more information, contact dattadibyojit@gmail.com
