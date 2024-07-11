@@ -29,7 +29,7 @@ def main():
                     try:
                         user_data = json.load(user_data_file)
                     except json.JSONDecodeError:
-                        print("user.json file seems corrupted!")
+                        print(f"{USER_LIST} file seems corrupted!")
                     # Generate new user ID and add user data
                     u_id = gen()
                     user_data[u_id] = {"name": u_name, "email": u_email}
@@ -49,7 +49,7 @@ def main():
                     try:
                         user_data = json.load(user_data_file)
                     except json.JSONDecodeError:
-                        print("user.json file seems corrupted!")
+                        print(f"{USER_LIST} file seems corrupted!")
                     # Remove user and user data
                     del user_data[u_ID]
                     # Erase the file and write updated data
@@ -58,6 +58,18 @@ def main():
                     print(f"User {u_name} with ID {u_ID} has been deleted.")
             except Exception as e:
                 print(f"User can't be removed: {e}")
+        elif carg[2]=="stash":
+            try:
+                with open(f'userlists\\{USER_LIST}', 'r+') as user_data_file:
+                    # Load existing user data
+                    try:
+                        user_data = json.load(user_data_file)
+                        for i in range(0, len(user_data)):
+                            print(f"{list(user_data.keys())[i]}: {list(user_data.values())[i]["name"]}")
+                    except json.JSONDecodeError:
+                        print(f"{USER_LIST}file seems corrupted!")
+            except Exception as e:
+                print(F"Users can't be stashed: {e}")
     # LIST command
     elif carg[1]=="list":
         if carg[2]=="add":
