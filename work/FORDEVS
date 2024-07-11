@@ -4,3 +4,6 @@ Workflow-
 * Replace PASSWORD with E-MAIL (IN PROGRESS)
 
 # user.json line70
+
+% git config --global user.name "Your Name"
+% git config --global user.email "Your Name"

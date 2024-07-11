@@ -58,6 +58,7 @@ def main():
                     print(f"User {u_name} with ID {u_ID} has been deleted.")
             except Exception as e:
                 print(f"User can't be removed: {e}")
+        # STASH Action
         elif carg[2]=="stash":
             try:
                 with open(f'userlists\\{USER_LIST}', 'r+') as user_data_file:
@@ -70,8 +71,29 @@ def main():
                         print(f"{USER_LIST} file seems corrupted!")
             except Exception as e:
                 print(f"Users can't be stashed: {e}")
+        # USE Action
+        elif carg[2]=="use":
+            u_ID = carg[3]
+            try:
+                with open(f'userlists\\{USER_LIST}', 'r+') as user_data_file:
+                    # Use a User as Git-User
+                    try:
+                        user_data = json.load(user_data_file)
+                        os.system(f' git config --global user.name {user_data[u_ID]["name"]}')
+                        os.system(f' git config --global user.email {user_data[u_ID]["email"]}')
+                        with open('config\\active_user', 'r+') as activeuser:
+                            active_user = json.load(activeuser)
+                            active_user["list"] = USER_LIST
+                            active_user["user"] = u_ID
+                            with open('config\\active_user', 'w+') as activeuser:
+                                json.dump(active_user, activeuser, indent=4)
+                    except json.JSONDecodeError:
+                        print(f"{USER_LIST} file seems corrupted!")
+            except Exception as e:
+                print(f"Users can't be used: {e}")
     # LIST command
     elif carg[1]=="list":
+        # ADD Action
         if carg[2]=="add":
             "Adds a new Userlist"
             list_file_name = carg[3]
@@ -82,6 +104,7 @@ def main():
             json.dump(list_register_temp, LIST_REGISTER, indent=4)
             open(f"userlists\\{list_file_name+'.json'}", 'w+').write("{}")
             print(f"Userlist {list_file_name} with ID {list_id} has been created.")
+        # REMOVE Action
         elif carg[2]=="remove":
             "Removes an existing Userlist"
             list_id = carg[3]
@@ -92,6 +115,7 @@ def main():
             erf.erase(LIST_REGISTER)
             json.dump(list_register_temp, LIST_REGISTER, indent=4)
             print(f"Userlist {list_name} deleted.")
+        # SELECT Action
         elif carg[2]=="select":
             "Selects a userlist as activelist"
             list_id = carg[3]
@@ -100,9 +124,11 @@ def main():
                 list_register_temp = json.load(LIST_REGISTER)
                 active_list.write(f'{list_register_temp[list_id]["file"]}')
                 print(f"Userlist {list_register_temp[list_id]["name"]} selected as activelist")
+        # ACTIVELIST Action
         elif carg[2]=="activelist":
             with open('config\\active_list', 'r+') as active_list:
                 print(f'{active_list.read()}')
+        # STASH Action
         elif carg[2]=="stash":
             try:
                 # Load existing list-register data
